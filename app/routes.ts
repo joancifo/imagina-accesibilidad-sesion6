@@ -15,5 +15,6 @@ export default [
     route("wcag22/ejercicio-2", "routes/wcag22-ejercicio-2.tsx"),
     route("wcag22/ejercicio-3", "routes/wcag22-ejercicio-3.tsx"),
     route("wcag22/ejercicio-4", "routes/wcag22-ejercicio-4.tsx"),
+    route("wcag-advanced", "routes/wcag-advanced.tsx"),
   ]),
 ] satisfies RouteConfig;

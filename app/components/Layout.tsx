@@ -49,6 +49,17 @@ export function Layout() {
             <span>WCAG 2.2</span>
           </div>
           <div
+            onClick={() => navigate("/wcag-advanced")}
+            className={`px-6 py-3 cursor-pointer flex items-center gap-3 transition-colors ${
+              location.pathname === "/wcag-advanced"
+                ? "bg-indigo-50 text-indigo-700 border-l-4 border-indigo-600"
+                : "text-gray-600 hover:bg-gray-50"
+            }`}
+          >
+            <span className="text-xl">🧬</span>
+            <span>WCAG Avanzado</span>
+          </div>
+          <div
             onClick={() => navigate("/")}
             className="px-6 py-3 cursor-pointer flex items-center gap-3 text-gray-600 hover:bg-gray-50 transition-colors"
           >
