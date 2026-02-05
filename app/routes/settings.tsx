@@ -9,6 +9,7 @@ export default function Settings() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [currency, setCurrency] = useState("EUR");
+  const [message, setMessage] = useState("");
 
   return (
     <div className="p-8 max-w-2xl">
@@ -50,18 +51,21 @@ export default function Settings() {
 
         <div className="flex gap-3 pt-4">
           <div
-            onClick={() => alert("Guardado")}
+            onClick={() => setMessage("Guardado correctamente.")}
             className="px-6 py-3 bg-indigo-600 text-white rounded-lg cursor-pointer hover:bg-indigo-700 font-medium"
           >
             Guardar
           </div>
           <div
-            onClick={() => {}}
+            onClick={() => setMessage("")}
             className="px-6 py-3 border border-gray-200 text-gray-600 rounded-lg cursor-pointer hover:bg-gray-50 font-medium"
           >
             Cancelar
           </div>
         </div>
+        {message && (
+          <div className="text-green-600 mt-2">{message}</div>
+        )}
       </div>
     </div>
   );

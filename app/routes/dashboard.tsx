@@ -100,10 +100,11 @@ export default function Dashboard() {
       </div>
 
       {/* Table as divs (no table semantics) + div buttons */}
+      {/* Intentional: h4 / strong instead of h2 — breaks heading hierarchy (1.3.1) */}
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-        <h2 className="text-gray-300 text-lg font-medium p-6 pb-0">
+        <strong className="block text-gray-300 text-lg font-bold p-6 pb-0">
           Transacciones recientes
-        </h2>
+        </strong>
         <div className="p-6">
           {/* Header row */}
           <div className="flex gap-4 py-3 border-b border-gray-200 text-gray-300 text-sm font-medium">

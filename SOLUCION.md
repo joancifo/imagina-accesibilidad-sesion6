@@ -47,6 +47,30 @@ Esta es la hoja de trucos de lo que debes **encontrar y arreglar** durante la ho
 
 ---
 
+## 6. Idioma de la página (criterio 3.1.1)
+
+**Fallo:** El contenido está en español pero en `app/root.tsx` el `<html>` tiene `lang="en"`. El lector de pantalla leerá "Ingresos", "Gastos", etc. con acento inglés (suena mal).
+
+**Arreglo:** Cambiar a `lang="es"` en la etiqueta `<html>`. En una demo con lector de pantalla se nota la diferencia de pronunciación.
+
+---
+
+## 7. Mensaje de estado (criterio 4.1.3 Status Messages)
+
+**Fallo:** Al guardar en Configuración aparece el texto "Guardado correctamente." en el DOM, pero el lector de pantalla **no lo anuncia** porque no es una live region.
+
+**Arreglo:** En el contenedor del mensaje (`app/routes/settings.tsx`), añadir `role="status"` o `aria-live="polite"` para que el lector anuncie el cambio cuando aparezca. Ejemplo: `<div role="status" aria-live="polite" className="...">`. Es el ejercicio ideal para practicar **Live Regions**.
+
+---
+
+## 8. Títulos jerárquicos (criterio 1.3.1)
+
+**Fallo:** "Transacciones recientes" está marcado como `<strong>` con letra grande en lugar de `<h2>`. Al navegar por encabezados (tecla H en NVDA/VoiceOver), esa sección se salta.
+
+**Arreglo:** Restaurar la semántica correcta: usar `<h2>` para "Transacciones recientes" en `app/routes/dashboard.tsx`. Puedes mantener el mismo aspecto con clases Tailwind (`text-lg font-bold`, etc.) en el `<h2>`.
+
+---
+
 ## Resumen
 
 | Área              | Dónde mirar           | Acción principal                                      |
@@ -56,5 +80,8 @@ Esta es la hoja de trucos de lo que debes **encontrar y arreglar** durante la ho
 | Tabla             | Dashboard (transacciones) | Divs → `<table>`, `<thead>`, `<th>`, `<tbody>`, `<tr>`, `<td>` |
 | Formularios       | Settings              | Añadir `<label htmlFor="...">` y `id` en inputs       |
 | Gráfico           | Dashboard (Recharts)  | Tabla de datos con clase `sr-only`                   |
+| Idioma            | `app/root.tsx`       | `lang="en"` → `lang="es"`                             |
+| Mensaje de estado | Settings              | Añadir `role="status"` o `aria-live="polite"` al mensaje "Guardado" |
+| Encabezados       | Dashboard             | `<strong>` "Transacciones recientes" → `<h2>`         |
 
 Cuando termines, comprueba con **Tab** (teclado), **lector de pantalla** (NVDA, VoiceOver o similar) y **herramientas de contraste** que los textos cumplan ratio suficiente.

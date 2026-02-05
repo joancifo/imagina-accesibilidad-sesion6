@@ -89,13 +89,50 @@ Este documento describe los **errores de accesibilidad introducidos intencionada
 
 ---
 
+## 7. Error del idioma (criterio 3.1.1)
+
+**Problema:** El documento declara `lang="en"` pero el contenido está en español ("Ingresos", "Gastos", "Dashboard financiero", etc.).
+
+**Dónde:** `app/root.tsx` — en el componente `Layout`, la etiqueta `<html>` tiene `lang="en"`.
+
+**Por qué es un error:** Los lectores de pantalla usan el idioma declarado para la pronunciación. Con `lang="en"` leerán las palabras españolas con acento/entonación incorrectos (p. ej. "Ingresos" suena mal). WCAG 3.1.1 exige que el idioma de la página se pueda determinar de forma programática.
+
+**La trampa:** En una demo con lector de pantalla, se nota claramente la diferencia al cambiar a `lang="es"`.
+
+---
+
+## 8. Mensaje de estado no anunciado (criterio 4.1.3)
+
+**Problema:** Tras guardar en Configuración, aparece un texto en el DOM ("Guardado correctamente.") pero **no** está marcado como mensaje de estado para lectores de pantalla.
+
+**Dónde:** `app/routes/settings.tsx` — el mensaje se muestra en un `<div className="text-green-600 ...">` sin `role="status"` ni `aria-live="polite"`.
+
+**Por qué es un error:** Cuando el contenido de la página cambia de forma dinámica (p. ej. un mensaje de confirmación), los lectores de pantalla no lo anuncian automáticamente a menos que sea una *live region*. Sin `role="status"` o `aria-live="polite"`, el usuario que usa lector de pantalla no se entera del feedback. WCAG 4.1.3 (Status Messages) requiere que estos mensajes sean detectables.
+
+**Nota:** Se sustituyó el `alert()` por texto en el DOM para mejorar la UX visual, pero el reto es hacer que ese mensaje sea anunciado (live regions).
+
+---
+
+## 9. Títulos jerárquicos rotos (criterio 1.3.1)
+
+**Problema:** La sección "Transacciones recientes" no usa un encabezado real; está marcada como `<strong>` con estilo de letra grande en lugar de `<h2>`.
+
+**Dónde:** `app/routes/dashboard.tsx` — el título de la sección de transacciones es `<strong className="... text-lg font-bold">` en vez de `<h2>`.
+
+**Por qué es un error:** Quien navega por encabezados (tecla H en NVDA/VoiceOver) recorre h1, h2, h3… En esta página hay h1 ("Dashboard financiero") y h2 ("Evolución mensual"), pero "Transacciones recientes" no es un encabezado, así que se salta. La estructura lógica (jerarquía de encabezados) queda rota. WCAG 1.3.1 (Info and Relationships) exige que la estructura sea programáticamente determinable.
+
+**El reto:** Restaurar la semántica correcta usando `<h2>` para "Transacciones recientes" (y mantener el estilo con clases si hace falta).
+
+---
+
 ## Resumen por fichero
 
 | Fichero | Errores |
 |---------|--------|
 | `app/app.css` | Foco eliminado (`outline: none`) |
+| `app/root.tsx` | Idioma incorrecto (`lang="en"` con contenido en español) |
 | `app/components/Layout.tsx` | Divs clicables en el sidebar; imagen sin `alt` |
-| `app/routes/dashboard.tsx` | Contraste bajo; "tabla" con divs; acciones como divs; botones de icono sin `aria-label`; gráfico solo por color y sin tabla alternativa |
-| `app/routes/settings.tsx` | Contraste bajo; inputs/select sin `<label>`; botones Guardar/Cancelar como divs |
+| `app/routes/dashboard.tsx` | Contraste bajo; "tabla" con divs; acciones como divs; botones de icono sin `aria-label`; gráfico solo por color y sin tabla alternativa; título "Transacciones recientes" como `<strong>` en lugar de `<h2>` |
+| `app/routes/settings.tsx` | Contraste bajo; inputs/select sin `<label>`; botones Guardar/Cancelar como divs; mensaje "Guardado" en el DOM sin `role="status"` / `aria-live` |
 
 Usa esta guía para localizar cada error en el código y, en clase, corregirlos siguiendo las prácticas de accesibilidad (WCAG, semántica HTML y ARIA cuando corresponda).
