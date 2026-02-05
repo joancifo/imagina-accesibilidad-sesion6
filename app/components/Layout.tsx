@@ -38,6 +38,17 @@ export function Layout() {
             <span>Configuración</span>
           </div>
           <div
+            onClick={() => navigate("/wcag22")}
+            className={`px-6 py-3 cursor-pointer flex items-center gap-3 transition-colors ${
+              location.pathname.startsWith("/wcag22")
+                ? "bg-indigo-50 text-indigo-700 border-l-4 border-indigo-600"
+                : "text-gray-600 hover:bg-gray-50"
+            }`}
+          >
+            <span className="text-xl">♿</span>
+            <span>WCAG 2.2</span>
+          </div>
+          <div
             onClick={() => navigate("/")}
             className="px-6 py-3 cursor-pointer flex items-center gap-3 text-gray-600 hover:bg-gray-50 transition-colors"
           >
