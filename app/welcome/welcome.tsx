@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import logoDark from "./logo-dark.svg";
 import logoLight from "./logo-light.svg";
 
@@ -6,6 +7,12 @@ export function Welcome() {
     <main className="flex items-center justify-center pt-16 pb-4">
       <div className="flex-1 flex flex-col items-center gap-16 min-h-0">
         <header className="flex flex-col items-center gap-9">
+          <Link
+            to="/dashboard"
+            className="rounded-xl bg-indigo-600 px-6 py-3 text-white font-medium hover:bg-indigo-700"
+          >
+            Ir al dashboard financiero
+          </Link>
           <div className="w-[500px] max-w-[100vw] p-4">
             <img
               src={logoLight}

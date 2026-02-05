@@ -5,6 +5,11 @@
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+/* Outline eliminado globalmente porque el borde azul del foco es feo */
+*:focus {
+  outline: none;
+}
+
 html,
 body {
   @apply bg-white dark:bg-gray-950;
